@@ -1,0 +1,8 @@
+let maior = Math.max(2,4,6,8,10)
+console.log(maior)
+let menor = Math.min(2,4,6,8,10)
+console.log(menor)
+let round = Math.round(2.5)
+console.log(round)
+let roundUp = Math.ceil(2.2)
+console.log(roundUp)

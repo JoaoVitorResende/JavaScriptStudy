@@ -1,0 +1,6 @@
+let sayHelloWorld = () => console.log("hello world")
+sayHelloWorld()
+let addTwoNumbers = (a,b) => console.log(a+b)
+addTwoNumbers(3,3)
+let multiplyAnNumberForTwo = x => console.log(x * 2)
+multiplyAnNumberForTwo(2)
