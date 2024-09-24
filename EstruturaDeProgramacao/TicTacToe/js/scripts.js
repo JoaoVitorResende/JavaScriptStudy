@@ -1,9 +1,8 @@
 let x = document.querySelector(".x")
 let o = document.querySelector(".o")
 let boxes = document.querySelectorAll(".box")
-let buttons = document.querySelectorAll("#buttons-container button")
 let messageContainer = document.querySelector("#message")
-let messageText = document.querySelector("#message p")
+let messageText = document.querySelector("#message")
 let secondPlayer
 let player1 = 0
 let player2 = 0
@@ -87,16 +86,18 @@ function CheckSameSymbols(threeboxes)
         else
             winOCount++;
     }
-    PrintTheWinner(winXCount, winOCount)
+    if(CheckAllBoxes() == 9 || winXCount == 3 || winOCount == 3)
+        PrintTheWinner(winXCount, winOCount)
 }
 function PrintTheWinner(winXCount, winOCount)
 {
+    console.log(winOCount, winXCount)
     if(winXCount == 3)
-        console.log("X ganhou")
+        DeclareWinner("x")
     else if(winOCount == 3)
-        console.log("O ganhou")
+        DeclareWinner("o")
     else
-        CheckAllBoxes()
+        DeclareWinner("z")
 }
 function CheckAllBoxes()
 {
@@ -106,7 +107,45 @@ function CheckAllBoxes()
         if(boxes[i].childNodes[0] != undefined)
             filledBoxes++
     }
-
-    if(filledBoxes == 9)
-        console.log("Deu Velha")
+    return filledBoxes
 }
+function DeclareWinner(winner){
+    let scoreBoardX = document.querySelector('#scoreboard-1')
+    let scoreBoardY = document.querySelector('#scoreboard-2')
+    if(winner == "x")
+    {
+        scoreBoardX.textContent = parseInt(scoreBoardX.textContent) + 1
+        MessageText("O jogador 1 venceu")
+        return
+    }
+    if (winner == "o")
+    {
+        scoreBoardY.textContent = parseInt(scoreBoardY.textContent) + 1
+        MessageText("O jogador 2 venceu")
+        return
+    }
+    MessageText("Deu velha")
+}
+function MessageText(text)
+{
+    messageText.classList.remove("hide")
+    messageText.innerHTML = text
+    for(let i = 0; i < boxes.length; i++)
+        boxes[i].removeEventListener("click", function(){
+    })
+    setTimeout(ResetMessage,1000)
+}
+function ResetMessage()
+{
+    messageContainer.classList.add("hide")
+    ResetGame()
+}
+function ResetGame()
+{
+    let boxesToRemove = document.querySelectorAll(".box div")
+    player1 = 0;
+    player2 = 0;
+    for(let i=0; i< boxesToRemove.length; i++)
+        boxesToRemove[i].parentNode.removeChild(boxesToRemove[i])
+}
+
